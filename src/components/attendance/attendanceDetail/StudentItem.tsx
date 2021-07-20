@@ -6,7 +6,7 @@ import {
 } from "../../../interface/Attendance/AttendanceInterface";
 import * as S from "./style";
 
-const SubMenu = ({ disable, setSelectValue }: subMenuProps) => {
+const SubMenu = ({ disable, selectValue ,setSelectValue }: subMenuProps) => {
   return (
     <ul className="sub-menu" style={{ display: disable ? "flex" : "none" }}>
       <li
@@ -33,6 +33,17 @@ const SubMenu = ({ disable, setSelectValue }: subMenuProps) => {
       >
         <span>무단</span>
       </li>
+      {
+        selectValue !== "" && 
+        <li
+          onClick={() => {
+            setSelectValue("");
+            console.log("출석");
+          }}
+        >
+          <span>출석</span>
+        </li>
+      }
     </ul>
   );
 };
@@ -45,6 +56,7 @@ const classButtonSubMenu: classbuttonSubMenuType[] = [
     id: 2,
   },
   { id: 3 },
+  { id: 4 },
 ];
 
 const StudentItem = ({ student, key }: studentItemProps) => {
@@ -73,6 +85,7 @@ const StudentItem = ({ student, key }: studentItemProps) => {
                 disable={disable}
                 setDisable={setDisable}
                 setSelectValue={setSelectValue}
+                selectValue={selectValue}
               />
             </>
           ) : (
