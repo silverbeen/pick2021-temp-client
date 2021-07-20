@@ -55,6 +55,7 @@ const StudentList = () => {
         <li>8교시</li>
         <li>9교시</li>
         <li>10교시</li>
+        <li>11교시</li>
       </S.HeaderBar>
       {studentList.map((student, index) => (
         <StudentItem student={student} key={index} />
