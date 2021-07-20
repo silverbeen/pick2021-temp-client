@@ -79,8 +79,9 @@ export const HeaderBar = styled.ul`
 
     :nth-child(4),
     :nth-child(5),
-    :nth-child(6) {
-      width: 20%;
+    :nth-child(6),
+    :nth-child(7) {
+      width: 14.5%;
     }
   }
 `;
@@ -100,10 +101,11 @@ export const StudentItem = styled(HeaderBar)`
 
     :nth-child(4),
     :nth-child(5),
-    :nth-child(6) {
+    :nth-child(6),
+    :nth-child(7) {
       position: relative;
       margin: 1%auto;
-      width: 19%;
+      width: 14.5%;
       height: 55%;
       border: 1px solid gray;
       border-radius: 15px;
@@ -124,6 +126,7 @@ export const StudentItem = styled(HeaderBar)`
 
     & li {
       width: 100%;
+      border: none;
       span {
         padding: 3px;
       }
