@@ -18,6 +18,7 @@ export interface studentItemProps {
 }
 
 export interface subMenuProps {
+  selectValue?: string,
   disable?: boolean;
   setDisable?: any;
   setSelectValue?: any;
