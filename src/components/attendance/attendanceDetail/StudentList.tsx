@@ -1,51 +1,22 @@
-import React from "react";
-import { studentListType } from "../../../interface/Attendance/AttendanceInterface";
+import React, { FC } from "react";
+import { IStudentList, IStudentListType } from "../../../interface/Attendance/AttendanceInterface";
 import StudentItem from "./StudentItem";
 import * as S from "./style";
 
-const StudentList = () => {
-  const studentList: studentListType[] = [
-    {
-      check: true,
-      stdtNumber: 2201,
-      stdName: "강은빈",
-      eightState: "",
-      nineState: "string",
-      tenState: "string",
-    },
-    {
-      check: true,
-      stdtNumber: 2202,
-      stdName: "강은빈",
-      eightState: "",
-      nineState: "string",
-      tenState: "string",
-    },
-    {
-      check: true,
-      stdtNumber: 2203,
-      stdName: "강은빈",
-      eightState: "",
-      nineState: "string",
-      tenState: "string",
-    },
-    {
-      check: true,
-      stdtNumber: 2204,
-      stdName: "강은빈",
-      eightState: "",
-      nineState: "string",
-      tenState: "string",
-    },
-    {
-      check: true,
-      stdtNumber: 2205,
-      stdName: "강은빈",
-      eightState: "",
-      nineState: "string",
-      tenState: "string",
-    },
-  ];
+interface Props {
+  studentData: IStudentList[]
+}
+
+const StudentList: FC<Props> = ({studentData}) => {
+
+const studentListData = Object.values(studentData.reduce((a:any, { name,gcn, period, isAttendance }) => {
+  a[gcn] = a[gcn] || { name, gcn, check: new Array() };
+  a[gcn].check.push({id: period, isAttendance: isAttendance});
+  return a;
+}, {}))
+console.log(studentListData)
+
+
   return (
     <S.StudentWrapper>
       <S.HeaderBar>
@@ -57,7 +28,7 @@ const StudentList = () => {
         <li>10교시</li>
         <li>11교시</li>
       </S.HeaderBar>
-      {studentList.map((student, index) => (
+      {studentListData.map((student, index) => (
         <StudentItem student={student} key={index} />
       ))}
     </S.StudentWrapper>
