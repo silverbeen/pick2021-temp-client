@@ -7,7 +7,7 @@ export const StudentSelect = selectorFamily({
 
     key: "studnet/get",
     get: (gubun: string) => async () => {
-      if (!gubun) return "";
+      if (!gubun) return [];
   
       const { data } = await axios.get(
         `http://13.125.161.204:8081/student/${gubun}`

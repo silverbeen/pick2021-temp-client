@@ -1,14 +1,20 @@
 import React, { FC, useState } from "react";
+import { useEffect } from "react";
+import { useRecoilValue, useRecoilValueLoadable } from "recoil";
+import { IStudentDataType } from "../../interface/Attendance/AttendanceInterface";
 import attendance from "../../lib/api/attendance";
+import { GubunState } from "../../lib/atom/Gubun/Gubun";
+import { StudentSelect } from "../../lib/atom/Student/Student";
 import * as S from "./style";
 
 interface Props {
-  teacher: string
+  
 }
 
-const Header: FC<Props> = ({teacher}) => {
+const Header: FC<Props> = () => {
   const [ name, setName ] = useState<string>("");
-
+  const gubun = useRecoilValue(GubunState);
+  const { state, contents } = useRecoilValueLoadable<IStudentDataType>(StudentSelect(gubun))
   const onTeacher = (teacher: string) => {
     attendance.patchTeacher(teacher)
     .then((res) => console.log(res))
@@ -26,7 +32,11 @@ const Header: FC<Props> = ({teacher}) => {
       </S.HeaderSub>
       <S.HeaderSub>
         <span>감독교사</span>
-        <input className="font-bold" placeholder={teacher} onBlur={(e) => onTeacher(e.target.value)}/>
+        {
+          state === "hasValue" ? 
+          <input className="font-bold" placeholder={contents.teacher} onBlur={(e) => onTeacher(e.target.value)}/>
+          : <div>loading...</div>
+        }
       </S.HeaderSub>
     </S.HeaderWrapper>
   );

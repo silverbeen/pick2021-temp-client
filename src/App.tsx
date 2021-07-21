@@ -7,9 +7,7 @@ import AttendanceDetail from "./components/attendance/attendanceDetail/Attendanc
 function App() {
   return (
     <RecoilRoot>
-      <Suspense fallback={<div>loading</div>}>
-        <AttendanceDetail />
-      </Suspense>
+      <AttendanceDetail />
     </RecoilRoot>
     
   )

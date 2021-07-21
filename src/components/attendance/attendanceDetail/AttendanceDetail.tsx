@@ -9,20 +9,21 @@ import { StudentSelect } from "../../../lib/atom/Student/Student";
 
 const AttendanceDetail = () => {
   const gubun = useRecoilValue(GubunState);
-  const data = useRecoilValue<any>(StudentSelect(gubun))
+  // const data = useRecoilValue<any>(StudentSelect(gubun))
 
-  console.log(data)
 
   return (
     <S.MainWrapper>
-      <Header teacher={data.teacher}/>
+      <Header/> 
       <S.ContentWrapper>
         <S.Title>
           <h1 className="club-name">{gubun}</h1>
           <span>창조실</span>
-        </S.Title>
+        </S.Title>  
         <SelectionBar />
-        <StudentList studentData={data.studentResponseList}/>
+        <React.Suspense fallback={<div>loading...</div>}>
+          <StudentList/> 
+        </React.Suspense>
       </S.ContentWrapper>
     </S.MainWrapper>
   );

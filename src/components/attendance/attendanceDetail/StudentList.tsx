@@ -1,22 +1,30 @@
 import React, { FC } from "react";
-import { IStudentList, IStudentListType } from "../../../interface/Attendance/AttendanceInterface";
+import { useEffect } from "react";
+import { useRecoilValue } from "recoil";
+import { IStudentDataType, IStudentList, IStudentListType } from "../../../interface/Attendance/AttendanceInterface";
+import { GubunState } from "../../../lib/atom/Gubun/Gubun";
+import { StudentSelect } from "../../../lib/atom/Student/Student";
 import StudentItem from "./StudentItem";
 import * as S from "./style";
 
 interface Props {
-  studentData: IStudentList[]
+ 
 }
 
-const StudentList: FC<Props> = ({studentData}) => {
+const StudentList: FC<Props> = () => {
+  const gubun = useRecoilValue(GubunState);
+  const { studentResponseList } = useRecoilValue<IStudentDataType>(StudentSelect(gubun))
 
-const studentListData = Object.values(studentData.reduce((a:any, { name,gcn, period, isAttendance }) => {
+const studentListData = Object.values(studentResponseList.reduce((a:any, { name,gcn, period, isAttendance }) => {
   a[gcn] = a[gcn] || { name, gcn, check: new Array() };
   a[gcn].check.push({id: period, isAttendance: isAttendance});
   return a;
 }, {}))
 console.log(studentListData)
 
-
+  useEffect(()=>{
+    console.log(studentResponseList);
+  },[studentResponseList])
   return (
     <S.StudentWrapper>
       <S.HeaderBar>
