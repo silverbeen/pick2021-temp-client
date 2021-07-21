@@ -1,4 +1,5 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import {
   IClassbuttonSubMenuType,
   IStudentList,
@@ -12,12 +13,28 @@ interface Props {
   key: number
 }
 
-const SubMenu = ({ disable, selectValue ,setSelectValue }: ISubMenuProps) => {
+const SubMenu = ({ disable, selectValue ,setSelectValue, period, gcn, isAttendance, test }: ISubMenuProps) => {
+
+  
+  const history = useHistory()
+
+  const onCheck = (isAttendance: string) => {
+    attendance.patchCheck(gcn, isAttendance, period)
+    .then((res) => console.log(res))
+    .catch((res) => console.log(res))
+
+    test.filter((i, index) => {
+      i.id == period && (i.isAttendance=isAttendance)
+    })
+  }
+  
+
   return (
     <ul className="sub-menu" style={{ display: disable ? "flex" : "none" }}>
       <li
         onClick={() => {
           setSelectValue("현체");
+          onCheck("현체")
           console.log("현체");
         }}
       >
@@ -26,6 +43,7 @@ const SubMenu = ({ disable, selectValue ,setSelectValue }: ISubMenuProps) => {
       <li
         onClick={() => {
           setSelectValue("귀가");
+          onCheck("귀가")
           console.log("귀가");
         }}
       >
@@ -34,16 +52,18 @@ const SubMenu = ({ disable, selectValue ,setSelectValue }: ISubMenuProps) => {
       <li
         onClick={() => {
           setSelectValue("무단");
+          onCheck("무단")
           console.log("무단");
         }}
       >
         <span>무단</span>
       </li>
       {
-        selectValue !== "" && 
+        isAttendance !== "출석" && 
         <li
           onClick={() => {
             setSelectValue("출석");
+            onCheck("출석")
             console.log("출석");
           }}
         >
@@ -58,13 +78,13 @@ const StudentItem: FC<Props> = ({ student, key }) => {
   const [disable, setDisable] = useState<boolean>(false);
   const [selectValue, setSelectValue] = useState<string>("");
   const [selected, setSelected] = useState<number>(0);
+  const [ data, setData ] = useState<any[]>([])
+  
+  useEffect(() => {
+    console.log(student.check)
+    setData(student.check)
+  })
 
-  const onCheck = (id: any) => {
-    console.log(student.gcn, selectValue, id)
-    // attendance.patchCheck(student.gcn, selectValue, selected)
-    // .then((res) => console.log(res))
-  }
-console.log(student.check)
   return (
     <S.StudentItem key={key}>
       <li>
@@ -72,15 +92,19 @@ console.log(student.check)
       </li>
       <li>{student.gcn}</li>
       <li>{student.name}</li>
-      {student.check.map((i: any, index: number) => (
-        <li
+      {data.map((i: any, index: number) => {
+
+        let attendanceList = data.filter((e: any) => e.id === i.id)
+        const attendanceText = attendanceList[0].isAttendance
+
+        return (
+          <li
           onClick={() => {
             setDisable(!disable);
             setSelected(i.id);
-            onCheck(i.id)
           }}
         >
-          <span>{i.isAttendance}</span>
+          <span>{attendanceText === "출석" ? "" : attendanceText}</span>
           {i.id === selected ? (
             <>
               <SubMenu
@@ -88,13 +112,18 @@ console.log(student.check)
                 setDisable={setDisable}
                 setSelectValue={setSelectValue}
                 selectValue={selectValue}
+                period={i.id}
+                gcn={student.gcn}
+                isAttendance={i.isAttendance}
+                test={attendanceList}
               />
             </>
           ) : (
             ""
           )}
         </li>
-      ))}
+        )
+      })}
     </S.StudentItem>
   );
 };
