@@ -35,7 +35,6 @@ const SubMenu = ({ disable, selectValue ,setSelectValue, period, gcn, isAttendan
         onClick={() => {
           setSelectValue("현체");
           onCheck("현체")
-          console.log("현체");
         }}
       >
         <span>현체</span>
@@ -44,7 +43,6 @@ const SubMenu = ({ disable, selectValue ,setSelectValue, period, gcn, isAttendan
         onClick={() => {
           setSelectValue("귀가");
           onCheck("귀가")
-          console.log("귀가");
         }}
       >
         <span>귀가</span>
@@ -53,7 +51,6 @@ const SubMenu = ({ disable, selectValue ,setSelectValue, period, gcn, isAttendan
         onClick={() => {
           setSelectValue("무단");
           onCheck("무단")
-          console.log("무단");
         }}
       >
         <span>무단</span>
@@ -64,7 +61,6 @@ const SubMenu = ({ disable, selectValue ,setSelectValue, period, gcn, isAttendan
           onClick={() => {
             setSelectValue("출석");
             onCheck("출석")
-            console.log("출석");
           }}
         >
           <span>출석</span>
@@ -88,7 +84,7 @@ const StudentItem: FC<Props> = ({ student, key }) => {
   return (
     <S.StudentItem key={key}>
       <li>
-        <input type="checkbox" />
+        <input type="checkbox" onClick={()=>alert("아직 개발중입니다")}/>
       </li>
       <li>{student.gcn}</li>
       <li>{student.name}</li>
