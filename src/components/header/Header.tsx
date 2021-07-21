@@ -17,7 +17,8 @@ const Header: FC<Props> = ({teacher}) => {
   return (
     <S.HeaderWrapper>
       <S.HeaderSub>
-        <span className="font-bold">{"<"} 홈</span>
+        <span className="font-bold"></span>
+        {/* <span className="font-bold">{"<"} 홈</span> */}
       </S.HeaderSub>
       <S.HeaderSub>
         <span className="font-bold">9월 3일</span>
