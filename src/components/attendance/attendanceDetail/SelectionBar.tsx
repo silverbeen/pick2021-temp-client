@@ -20,18 +20,6 @@ const SelectionBar = () => {
       id: 1,
       title: "창조실",
     },
-    {
-      id: 2,
-      title: "2층",
-    },
-    {
-      id: 3,
-      title: "3층",
-    },
-    {
-      id: 4,
-      title: "4층",
-    },
   ];
 
   const classButtonList: IButtonListType[] = [
