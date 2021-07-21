@@ -1,13 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { buttonListType } from "../../../interface/Attendance/AttendanceInterface";
+import React, { useCallback, useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
+import { IButtonListType } from "../../../interface/Attendance/AttendanceInterface";
+import { GubunState } from "../../../lib/atom/Gubun/Gubun";
 import * as S from "./style";
 
 const SelectionBar = () => {
   const [selected, setSelected] = useState<number>(1);
-  const [classSelected, setClassSelected] = useState<number>(1);
+  const [classSelected, setClassSelected] = useState<string>('A');
   const [buttonWidth, setButtonWidth] = useState<number>(0);
+  const [ gubun, setGubun ] = useRecoilState(GubunState);
 
-  const topButtonList: buttonListType[] = [
+  const onClassSelected = (title: any) => {
+    setClassSelected(title)
+    setGubun(title);
+  }
+
+  const topButtonList: IButtonListType[] = [
     {
       id: 1,
       title: "창조실",
@@ -26,27 +34,23 @@ const SelectionBar = () => {
     },
   ];
 
-  const classButtonList: buttonListType[] = [
+  const classButtonList: IButtonListType[] = [
     {
       id: 1,
-      title: "교실 (3-1)",
+      title: "A",
     },
     {
       id: 2,
-      title: "교실 (3-1)",
+      title: "B",
     },
     {
       id: 3,
-      title: "교실 (3-1)",
+      title: "C",
     },
     {
       id: 4,
-      title: "교실 (3-1)",
-    },
-    {
-      id: 5,
-      title: "교실 (3-1)",
-    },
+      title: 'X'
+    }
   ];
 
   useEffect(() => {
@@ -77,12 +81,12 @@ const SelectionBar = () => {
           return (
             <S.SelectionItem
               key={index}
-              onClick={() => setClassSelected(button.id)}
+              onClick={() => onClassSelected(button.title)}
               style={{
                 width: buttonWidth + "%",
                 backgroundColor:
-                  button.id === classSelected ? "#FF6E04" : "white",
-                color: button.id === classSelected ? "white" : "black",
+                  button.title === classSelected ? "#FF6E04" : "white",
+                color: button.title === classSelected ? "white" : "black",
               }}
             >
               {button.title}
