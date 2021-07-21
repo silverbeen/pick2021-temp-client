@@ -21,6 +21,8 @@ export const HeaderSub = styled.div`
   width: 10%;
 
   .font-bold {
+    width: 100%;
+    text-align: center;
     font-size: 20px;
     font-weight: 600;
   }
