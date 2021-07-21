@@ -1,7 +1,11 @@
-import React from "react";
+import React, { FC } from "react";
 import * as S from "./style";
 
-const Header = () => {
+interface Props {
+  teacher: string
+}
+
+const Header: FC<Props> = ({teacher}) => {
   return (
     <S.HeaderWrapper>
       <S.HeaderSub>
@@ -13,7 +17,7 @@ const Header = () => {
       </S.HeaderSub>
       <S.HeaderSub>
         <span>감독교사</span>
-        <span className="font-bold">이동욱</span>
+        <span className="font-bold">{teacher}</span>
       </S.HeaderSub>
     </S.HeaderWrapper>
   );
