@@ -1,4 +1,5 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
+import attendance from "../../lib/api/attendance";
 import * as S from "./style";
 
 interface Props {
@@ -6,6 +7,13 @@ interface Props {
 }
 
 const Header: FC<Props> = ({teacher}) => {
+  const [ name, setName ] = useState<string>("");
+
+  const onTeacher = (teacher: string) => {
+    attendance.patchTeacher(teacher)
+    .then((res) => console.log(res))
+  }
+
   return (
     <S.HeaderWrapper>
       <S.HeaderSub>
@@ -17,7 +25,7 @@ const Header: FC<Props> = ({teacher}) => {
       </S.HeaderSub>
       <S.HeaderSub>
         <span>감독교사</span>
-        <span className="font-bold">{teacher}</span>
+        <input className="font-bold" placeholder={teacher} onBlur={(e) => onTeacher(e.target.value)}/>
       </S.HeaderSub>
     </S.HeaderWrapper>
   );
