@@ -1,9 +1,9 @@
-export interface buttonListType {
+export interface IButtonListType {
   id: number;
   title: string;
 }
 
-export interface studentListType {
+export interface IStudentListType {
   check: boolean;
   stdtNumber: number;
   stdName: string;
@@ -12,18 +12,27 @@ export interface studentListType {
   tenState: string;
 }
 
-export interface studentItemProps {
-  student: any;
-  key: number;
-}
-
-export interface subMenuProps {
+export interface ISubMenuProps {
   selectValue?: string,
   disable?: boolean;
   setDisable?: any;
   setSelectValue?: any;
 }
 
-export interface classbuttonSubMenuType {
+export interface IClassbuttonSubMenuType {
   id: number;
+}
+
+export interface IStudentDataType {
+  studentResponseList: IStudentList[],
+  date: string,
+  teacher: string
+}
+
+export interface IStudentList {
+  gcn: string,
+  name: string,
+  gubun: string,
+  period: string,
+  isAttendance: string
 }
