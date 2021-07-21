@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 
+
 export const MainWrapper = styled.div`
   width: 100%;
   height: 100vh;
@@ -93,6 +94,12 @@ export const StudentItem = styled(HeaderBar)`
   list-style: none inside;
 
   & li {
+    & > div{
+      position: absolute;
+      top: 28px;
+      width: 100%;
+      z-index: 1;
+    }
     :nth-child(1) {
       & input {
         width: 100%;
@@ -112,17 +119,13 @@ export const StudentItem = styled(HeaderBar)`
       border-radius: 15px;
     }
   }
-
+  
   .sub-menu {
     width: 100%;
     background-color: white;
     border-radius: 5px;
     box-shadow: 0 2px 15px #80808061;
-    position: absolute;
-    top: 28px;
     display: flex;
-    z-index: 1;
-
     flex-direction: column;
 
     & li {

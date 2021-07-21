@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import OutsideClickHandler from 'react-outside-click-handler';
 import {
   IClassbuttonSubMenuType,
   IStudentList,
@@ -8,12 +9,13 @@ import {
 import attendance from "../../../lib/api/attendance";
 import * as S from "./style";
 
+
 interface Props {
   student: any,
   key: number
 }
 
-const SubMenu = ({ disable, selectValue ,setSelectValue, period, gcn, isAttendance, test }: ISubMenuProps) => {
+const SubMenu = ({ disable, setDisable ,selectValue ,setSelectValue, period, gcn, isAttendance, test }: ISubMenuProps) => {
 
   
   const history = useHistory()
@@ -30,43 +32,45 @@ const SubMenu = ({ disable, selectValue ,setSelectValue, period, gcn, isAttendan
   
 
   return (
-    <ul className="sub-menu" style={{ display: disable ? "flex" : "none" }}>
-      <li
-        onClick={() => {
-          setSelectValue("현체");
-          onCheck("현체")
-        }}
-      >
-        <span>현체</span>
-      </li>
-      <li
-        onClick={() => {
-          setSelectValue("귀가");
-          onCheck("귀가")
-        }}
-      >
-        <span>귀가</span>
-      </li>
-      <li
-        onClick={() => {
-          setSelectValue("무단");
-          onCheck("무단")
-        }}
-      >
-        <span>무단</span>
-      </li>
-      {
-        isAttendance !== "출석" && 
+    <OutsideClickHandler onOutsideClick={()=>setDisable(false)}>
+      <ul className="sub-menu" style={{ display: disable ? "flex" : "none" }}>
         <li
           onClick={() => {
-            setSelectValue("출석");
-            onCheck("출석")
+            setSelectValue("현체");
+            onCheck("현체")
           }}
         >
-          <span>출석</span>
+          <span>현체</span>
         </li>
-      }
-    </ul>
+        <li
+          onClick={() => {
+            setSelectValue("귀가");
+            onCheck("귀가")
+          }}
+        >
+          <span>귀가</span>
+        </li>
+        <li
+          onClick={() => {
+            setSelectValue("무단");
+            onCheck("무단")
+          }}
+        >
+          <span>무단</span>
+        </li>
+        {
+          isAttendance !== "출석" && 
+          <li
+            onClick={() => {
+              setSelectValue("출석");
+              onCheck("출석")
+            }}
+          >
+            <span>출석</span>
+          </li>
+        }
+      </ul>
+    </OutsideClickHandler>
   );
 };
 
