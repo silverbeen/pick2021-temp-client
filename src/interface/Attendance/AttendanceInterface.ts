@@ -14,9 +14,13 @@ export interface IStudentListType {
 
 export interface ISubMenuProps {
   selectValue?: string,
-  disable?: boolean;
-  setDisable?: any;
-  setSelectValue?: any;
+  disable?: boolean,
+  setDisable?: any,
+  setSelectValue?: any,
+  period?: any,
+  gcn?: any,
+  isAttendance?: any
+  test: any[]
 }
 
 export interface IClassbuttonSubMenuType {
