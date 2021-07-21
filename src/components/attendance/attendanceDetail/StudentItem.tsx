@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import {
-  classbuttonSubMenuType,
-  studentItemProps,
-  subMenuProps,
+  IClassbuttonSubMenuType,
+  IStudentList,
+  ISubMenuProps,
 } from "../../../interface/Attendance/AttendanceInterface";
+import attendance from "../../../lib/api/attendance";
 import * as S from "./style";
 
-const SubMenu = ({ disable, selectValue ,setSelectValue }: subMenuProps) => {
+interface Props {
+  student: any,
+  key: number
+}
+
+const SubMenu = ({ disable, selectValue ,setSelectValue }: ISubMenuProps) => {
   return (
     <ul className="sub-menu" style={{ display: disable ? "flex" : "none" }}>
       <li
@@ -37,7 +43,7 @@ const SubMenu = ({ disable, selectValue ,setSelectValue }: subMenuProps) => {
         selectValue !== "" && 
         <li
           onClick={() => {
-            setSelectValue("");
+            setSelectValue("출석");
             console.log("출석");
           }}
         >
@@ -48,38 +54,34 @@ const SubMenu = ({ disable, selectValue ,setSelectValue }: subMenuProps) => {
   );
 };
 
-const classButtonSubMenu: classbuttonSubMenuType[] = [
-  {
-    id: 1,
-  },
-  {
-    id: 2,
-  },
-  { id: 3 },
-  { id: 4 },
-];
-
-const StudentItem = ({ student, key }: studentItemProps) => {
+const StudentItem: FC<Props> = ({ student, key }) => {
   const [disable, setDisable] = useState<boolean>(false);
   const [selectValue, setSelectValue] = useState<string>("");
   const [selected, setSelected] = useState<number>(0);
 
+  const onCheck = (id: any) => {
+    console.log(student.gcn, selectValue, id)
+    // attendance.patchCheck(student.gcn, selectValue, selected)
+    // .then((res) => console.log(res))
+  }
+console.log(student.check)
   return (
     <S.StudentItem key={key}>
       <li>
         <input type="checkbox" />
       </li>
-      <li>{student.stdtNumber}</li>
-      <li>{student.stdName}</li>
-      {classButtonSubMenu.map((id) => (
+      <li>{student.gcn}</li>
+      <li>{student.name}</li>
+      {student.check.map((i: any, index: number) => (
         <li
           onClick={() => {
             setDisable(!disable);
-            setSelected(id.id);
+            setSelected(i.id);
+            onCheck(i.id)
           }}
         >
-          <span>{selectValue}</span>
-          {id.id === selected ? (
+          <span>{i.isAttendance}</span>
+          {i.id === selected ? (
             <>
               <SubMenu
                 disable={disable}
