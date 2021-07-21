@@ -77,7 +77,6 @@ const StudentItem: FC<Props> = ({ student, key }) => {
   const [ data, setData ] = useState<any[]>([])
   
   useEffect(() => {
-    console.log(student.check)
     setData(student.check)
   })
 
