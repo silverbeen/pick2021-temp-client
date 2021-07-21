@@ -23,6 +23,7 @@ export const ContentWrapper = styled.div`
 export const Title = styled.div`
   .club-name {
     font-weight: 500;
+    text-align: center;
   }
 `;
 
